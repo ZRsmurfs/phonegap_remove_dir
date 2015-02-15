@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>demo</title>
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+  </head>
+  <body>
+  <font size=7 color=blue>
+  ver0111: <p>
+  <p id="log"></p>
+  </font>
+  </body>
+
+<script type="text/javascript" charset="utf-8">
+young_log("init00");
+document.addEventListener('deviceready', onDeviceReady, false);
+young_log("init01");
+function onDeviceReady() {
+	young_log("init1");
+
+  	window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
+	young_log("init6");
+	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
+	young_log("init_end");
+
+    function fail(error) {
+		young_log( "fail");
+        young_log( "error code:"+ error.code);
+    }	
+	
+    function success() {
+		young_log( "deleted.");
+    }		
+	
+	function onFileSystemSuccess(fileSystem) {
+		young_log("init7");
+		var dirname = "test_zip_out";
+		entry = fileSystem.root.toURL() + '/'+ dirname;
+		
+		entry.removeRecursively(success, fail);
+
+		young_log("init8");
+	}
+}
+
+
+//---------------------------
+
+function young_log(message)
+{
+	document.getElementById("log").innerHTML += (message + "<p>");
+}
+
+    </script>
+ 
+</html>
