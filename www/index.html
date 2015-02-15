@@ -36,12 +36,16 @@ function onDeviceReady() {
 	function onFileSystemSuccess(fileSystem) {
 		young_log("init7");
 		var dirname = "test_zip_out";
-		entry = fileSystem.root.toURL() + '/'+ dirname;
-		
-		entry.removeRecursively(success, fail);
-
+		fileSystem.root.getDirectory(dirname, {create: true, exclusive: false}, getdir_success, fail);
 		young_log("init8");
 	}
+	
+    function getdir_success(entry) {
+		young_log("init9");
+		entry.removeRecursively(success, fail);
+		young_log("init10");
+    }			
+
 }
 
 
